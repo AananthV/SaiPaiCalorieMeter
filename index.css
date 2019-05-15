@@ -14,10 +14,7 @@ h1, .item-list h2 {
 header {
   text-align: center;
   position: sticky;
-  background-color: red;
   overflow: hidden;
-  margin: -9999rem -9999rem 0rem -9999rem;
-  padding: 9999rem 9999rem 0.5rem 9999rem;
 }
 
 .heading {
