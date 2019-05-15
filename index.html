@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Calorie Tracker</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="index.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <header>
+      <span class="heading">Calorie Tracker</span>
+    </header>
+    <div class="main-container">
+      <div id="cal-meter-container">
+        <h2>Calorie Meter: </h2>
+        <div id="cal-meter">
+          <div id="cal-bar">
+            <span id="bar-text">
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="calculator">
+        <div class="calorie-limit">
+          <label for="cal-limit"><h2>Daily Calorie Intake: </h2></label>
+          <input type="text" class="input-field" name="cal-limit" id="cal-limit" value="2000" readonly>
+          <div class="dcal-calculator">
+            <span id="cal-toggle" onclick="calPopup()">Calculate</span>
+            <div class="dcal-calc" id="cal-popup" align="center">
+              <h3>Calorie Intake Calculator (<a href="https://en.wikipedia.org/wiki/Harris%E2%80%93Benedict_equation">?</a>)</h3>
+              <form class="popup-calc">
+                <span class="calc-input">
+                  Gender:
+                  <label for="calc-gen-m">Male</label>
+                  <input type="radio" name="calc-gen" id="calc-gen-m" checked>
+                  <label for="calc-gen-f">Female</label>
+                  <input type="radio" name="calc-gen" id="calc-gen-f">
+                </span>
+                <span class="calc-input">
+                  <label for="calc-age">Age: </label>
+                  <input type="number" name="calc-age" id="calc-age">
+                </span>
+                <span class="calc-input">
+                  <label for="calc-height">Height: </label>
+                  <input type="number" name="calc-height" id="calc-height">
+                </span>
+                <span class="calc-input">
+                  <label for="calc-weight">Weight: </label>
+                  <input type="number" name="calc-weight" id="calc-weight">
+                </span>
+                <span class="calc-input">
+                  <label for="calc-active">Physical Activity:</label>
+                  <select id="calc-active">
+                    <option value="1.2">Sedentary</option>
+                    <option value="1.375">Lightly Active</option>
+                    <option value="1.55">Moderately Active</option>
+                    <option value="1.725">Very Active</option>
+                    <option value="1.9">Intense Training</option>
+                  </select>
+                </span>
+                <input type="button" class="btn submitbtn" name="calc-submit" value="Submit" onclick="calcDailyCalories()">
+              </form>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <form class="food-intake-form">
+          <h2>Add Item</h2>
+          <div class="food-input">
+            <label for="item-name">Name: </label><br>
+            <input type="text" class="input-field" name="item-name" id="item-name"><br>
+          </div>
+          <div class="food-input">
+            <label for="item-cal">Calories: </label><br>
+            <input type="number" min="0" class="input-field" name="item-cal" id="item-cal"><br>
+          </div>
+          <div class="food-input">
+            <label for="item-fat">Fat: </label><br>
+            <input type="number" class="input-field" name="item-fat" id="item-fat"><br>
+          </div>
+          <div class="food-input">
+            <label for="item-carbs">Cabohydrate: </label><br>
+            <input type="number" class="input-field" name="item-carbs" id="item-carbs"><br>
+          </div>
+          <div class="food-input">
+            <label for="item-protien">Protien: </label><br>
+            <input type="number" class="input-field" name="item-protien" id="item-protien"><br>
+          </div>
+          <input type="button" class="btn submitbtn" name="item-add" value="Add Item" onclick="addItem()">
+        </form>
+      </div>
+      <br>
+      <div class="item-list" id="item-list">
+        <h2>Food Items Consumed</h2>
+        <hr>
+        <div id="card-list" align="center">
+          Add some items, dont stay hungry :)
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,207 @@
+body {
+  background-color: #eeeeee;
+  padding: 0px;
+}
+
+h2, h3 {
+  margin: 0.25em 0em;
+}
+
+h1, .item-list h2 {
+  text-align: center;
+}
+
+header {
+  text-align: center;
+  position: sticky;
+  background-color: red;
+  overflow: hidden;
+  margin: -9999rem -9999rem 0rem -9999rem;
+  padding: 9999rem 9999rem 0.5rem 9999rem;
+}
+
+.heading {
+  font-size: 2em;
+}
+
+.main-container {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  width: 70%;
+  left: 15%;
+  right: 15%;
+  padding: 0.5em;
+  background-color: #f8f9fa;
+  overflow: hidden;
+}
+
+.main-container .calculator {
+  flex-grow: 5;
+  padding-right: 1em;
+}
+
+.main-container .calculator hr {
+  width: 100%;
+  margin-top: 0.5em;
+  opacity: 70%;
+}
+
+.main-container .item-list {
+  flex-grow: 1;
+  background-color: #eee;
+  border-radius: 10px;
+  padding: 1em;
+}
+
+.main-container .item-list hr {
+  width: 90%;
+  opacity: 70%;
+}
+
+.food-input {
+  padding: 0.25em 0;
+}
+
+.food-intake-form label {
+  font-size: 1.2em;
+}
+
+.input-field {
+  height: 2em;
+  width: 100%;
+  margin: 1px;
+  border: 1px solid;
+  border-radius: 3px;
+}
+
+.card {
+  background-color: white;
+  padding: 0.5em;
+  border: 2px dashed blue;
+  margin: 0.25em 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-heading {
+  font-size: 2em;
+  font-style: bold;
+}
+
+.card-text {
+  font-size: 1.5em;
+}
+
+.card-body {
+  visibility: hidden;
+  height: 0px;
+  text-align: center;
+  font-size: 1.2em;
+  display: flex;
+  justify-content: center;
+}
+
+.item-details, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+#cal-toggle {
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+.dcal-calc {
+  visibility: hidden;
+  background-color: white;
+  height: 0px;
+  margin-left: 20%;
+  width: 60%;
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 0.25em;
+}
+
+
+.calc-input {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.25em 0;
+}
+
+.show {
+  visibility: visible;
+  height: auto;
+  -webkit-animation: fadeIn 0.5s;
+  animation: fadeIn 0.5s;
+}
+
+.btn {
+  height: 2rem;
+  width: auto;
+  font-size: 1em;
+  border: 1px solid black;
+  border-radius: 4px;
+  font-style: bold;
+}
+
+.btn:hover {
+  background-color: blue;
+}
+
+.btn:active {
+  position: relative;
+  top: 1px;
+}
+
+.rmbtn {
+  background-color: red;
+}
+
+.submitbtn {
+  background-color: green;
+}
+
+input {
+  padding-left: 0.25em;
+  font-size: 1em;
+}
+
+#cal-meter-container {
+  padding-right: 0.25em;
+  width: 100%;
+  margin-bottom: 0.35em;
+}
+
+#cal-meter {
+  width: 100%;
+  height: 2em;
+  border: 1px solid;
+  padding: 1px;
+  background-color: white;
+  border-radius: 5px;
+}
+
+#cal-bar {
+  width: 0%;
+  height: 100%;
+  border-radius: 5px;
+  background-color: green;
+  transition: width 2s;
+}
+
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
