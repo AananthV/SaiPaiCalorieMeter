@@ -120,7 +120,7 @@ let createCard = function(item) {
   table = [
     ["<strong>Item</strong>", "<strong>Quantity</strong>", "<strong>% Of Daily Consumption</strong>"],
     ["Calories", item.getCalories(), item.getCaloriePercent()],
-    ["Carbohydrate", item.getCarbs(), item.getCarbPercent()],
+    ["Carbs", item.getCarbs(), item.getCarbPercent()],
     ["Fat", item.getFat(), item.getFatPercent()],
     ["Protien", item.getProtien(), item.getProtienPercent()]
   ];

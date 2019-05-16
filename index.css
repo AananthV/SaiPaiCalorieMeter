@@ -30,7 +30,6 @@ header {
   width: 70%;
   padding: 0.5em;
   background-color: #f8f9fa;
-  overflow: hidden;
 }
 
 .main-container .calculator {
@@ -231,5 +230,58 @@ input {
   .main-container {
     width: 100%;
     flex-direction: column;
+  }
+  .main-container .calculator {
+    width: 100%;
+    padding-right: 1em;
+  }
+  .main-container .item-list {
+    background-color: #eee;
+    border-radius: 10px;
+    width: 100%;
+    padding: 1em;
+  }
+  .card-heading {
+    font-size: 1.5em;
+    font-style: bold;
+  }
+
+  .card-text {
+    font-size: 1.2em;
+  }
+
+  .card-body {
+    visibility: hidden;
+    height: 0px;
+    text-align: center;
+    font-size: 1em;
+    display: flex;
+    justify-content: center;
+  }
+
+  .dcal-calc {
+    visibility: hidden;
+    background-color: white;
+    height: 0px;
+    width: 95%;
+    margin-left: 2.5%;
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 0.25em;
+  }
+
+  .calc-input {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0.25em 0;
+    white-space: normal;
+  }
+
+  .show {
+    visibility: visible;
+    height: auto;
+    -webkit-animation: fadeIn 0.5s;
+    animation: fadeIn 0.5s;
   }
 }
