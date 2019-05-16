@@ -147,10 +147,6 @@ header {
   font-style: bold;
 }
 
-.btn:hover {
-  background-color: blue;
-}
-
 .btn:active {
   position: relative;
   top: 1px;
@@ -283,5 +279,11 @@ input {
     height: auto;
     -webkit-animation: fadeIn 0.5s;
     animation: fadeIn 0.5s;
+  }
+}
+
+@media only screen and (min-width: 794px) {
+  .btn:hover {
+    background-color: blue;
   }
 }
