@@ -274,7 +274,6 @@ let resetAllItems = function() {
 window.onload = function() {
   retrieveAllItems();
   updateSite();
-  alert(screen.width)
 };
 
 let calcDailyCalories = function() {
