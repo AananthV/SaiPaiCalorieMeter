@@ -232,14 +232,14 @@ input {
     flex-direction: column;
   }
   .main-container .calculator {
-    width: 100%;
-    padding-right: 1em;
+    width: 99%;
+    padding-right: 1%;
   }
   .main-container .item-list {
     background-color: #eee;
     border-radius: 10px;
-    width: 100%;
-    padding: 1em;
+    width: 98%;
+    padding: 1%;
   }
   .card-heading {
     font-size: 1.5em;
