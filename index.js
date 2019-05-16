@@ -43,7 +43,6 @@ let Items = []
 let Ids = [] //Array of all itemids;
 let DailyCalorieCount = 2000;
 let CalorieCount = 0;
-let currentTime = new Date();
 
 let calPopup = function() {
   let popup = document.querySelector('#cal-popup');
@@ -57,6 +56,7 @@ let expandCard = function(card_id) {
 }
 
 let addItem = function() {
+  let currentTime = new Date();
   let itemId = currentTime.getTime();
   let name = document.querySelector('#item-name').value;
   let calories = parseInt(document.querySelector('#item-cal').value);
