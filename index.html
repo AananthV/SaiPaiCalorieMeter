@@ -7,9 +7,6 @@
     <script src="index.js" charset="utf-8"></script>
   </head>
   <body>
-    <header>
-      <span class="heading">Calorie Tracker</span>
-    </header>
     <div class="main-container">
       <div id="cal-meter-container">
         <h2>Calorie Meter: </h2>
@@ -27,7 +24,7 @@
           <div class="dcal-calculator">
             <span id="cal-toggle" onclick="calPopup()">Calculate</span>
             <div class="dcal-calc" id="cal-popup" align="center">
-              <h3>Calorie Intake Calculator (<a href="https://en.wikipedia.org/wiki/Harris%E2%80%93Benedict_equation">?</a>)</h3>
+              <h3>Calorie Intake Calculator (<a href="https://en.wikipedia.org/wiki/Harris%E2%80%93Benedict_equation" target="_blank">?</a>)</h3>
               <form class="popup-calc">
                 <span class="calc-input">
                   Gender:
@@ -95,6 +92,9 @@
         <hr>
         <div id="card-list" align="center">
           <p id="dont-be-hungry" class="dont-be-hungry dbh">Add some items, dont stay hungry :)</p>
+        </div>
+        <div class="clear-list btn rmbtn" onclick="resetAllItems()">
+          RESET
         </div>
       </div>
     </div>

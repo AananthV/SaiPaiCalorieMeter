@@ -17,25 +17,25 @@ class foodItem {
     return this.calories;
   }
   getCaloriePercent() {
-    return (this.calories/DailyCalorieCount)*100;
+    return ((this.calories/DailyCalorieCount)*100).toFixed(2);
   }
   getFat() {
     return this.fat;
   }
   getFatPercent() {
-    return ((this.fat*9)/(DailyCalorieCount*0.30))*100;
+    return (((this.fat*9)/(DailyCalorieCount*0.30))*100).toFixed(2);
   }
   getCarbs() {
     return this.carbs;
   }
   getCarbPercent() {
-    return ((this.carbs*4)/(DailyCalorieCount*0.45))*100;
+    return (((this.carbs*4)/(DailyCalorieCount*0.45))*100).toFixed(2);
   }
   getProtien() {
     return this.protien;
   }
   getProtienPercent() {
-    return ((this.protien*4)/(DailyCalorieCount*0.25))*100;
+    return (((this.protien*4)/(DailyCalorieCount*0.25))*100).toFixed(2);
   }
 }
 
@@ -179,7 +179,9 @@ let updateMeter = function() {
 
   //Change Meter According to Calorie Count
   let calBar = document.querySelector("#cal-bar");
-  calBar.style.width = (CalorieCount/DailyCalorieCount)*(2/3)*100 + "%";
+  calBar.innerHTML = CalorieCount+" Kcal";
+  barWidth = (CalorieCount/DailyCalorieCount)*(2/3)*100;
+  calBar.style.width = (barWidth<=100 ? barWidth : 100) + "%";
   if(CalorieCount <= DailyCalorieCount) {
     calBar.style.backgroundColor = "green";
   } else {
@@ -190,14 +192,16 @@ let updateMeter = function() {
 
 let updateSite = function() {
   //Empty Current Card list
-  /*let itemList = document.querySelector("#item-list");
+  let itemList = document.querySelector("#item-list");
   let cardList = document.querySelector("#card-list");
-  itemList.removeChild(cardList);
+  cardList.innerHTML = "";
 
-  //Create New Card List
-  cardList = document.createElement("div");
-  cardList.id = "card-list";
-  itemList.appendChild(cardList);*/
+  //Add Dont Be Hungry Message
+  let dontBeHungry = document.createElement("p");
+  dontBeHungry.id = "dont-be-hungry";
+  dontBeHungry.className = "dont-be-hungry dbh";
+  dontBeHungry.innerHTML = "Add some items, dont stay hungry :)";
+  cardList.appendChild(dontBeHungry);
 
   //Insert Cards
   for(let item = 0; item < Items.length; item++) {
@@ -208,14 +212,18 @@ let updateSite = function() {
   document.querySelector("#cal-limit").value = DailyCalorieCount;
 
   //Dont-Be-Hungry Message
+  toggleHungryMessage();
+
+  updateMeter();
+};
+
+let toggleHungryMessage = function() {
   let dontBeHungry = document.querySelector("#dont-be-hungry");
   if(Items.length <= 0){
     dontBeHungry.classList.add("dbh");
   } else {
     dontBeHungry.classList.remove("dbh");
   }
-
-  updateMeter();
 };
 
 let saveItemIds = function() {
@@ -229,7 +237,6 @@ let saveItem = function(item) {
 
 let retrieveItem = function(id) {
   let item = JSON.parse(localStorage.getItem(id));
-  console.log(item);
   let classitem = new foodItem(item.id, item.name, item.calories, item.fat, item.carbs, item.protien);
   return classitem;
 };
@@ -256,6 +263,13 @@ let retrieveAllItems = function() {
   }
   DailyCalorieCount = localStorage.getItem("dcc") || 3000;
 };
+
+let resetAllItems = function() {
+  for(id of Ids) {
+    removeItemById(id);
+  }
+  toggleHungryMessage();
+}
 
 window.onload = function() {
   retrieveAllItems();
@@ -284,4 +298,5 @@ let calcDailyCalories = function() {
   document.querySelector("#cal-limit").value = DailyCalorieCount;
   saveDCC();
   calPopup();
+  updateSite();
 }
