@@ -1,10 +1,14 @@
 class foodItem {
-  constructor(name, calories, fat, carbs, protien) {
+  constructor(id, name, calories, fat, carbs, protien) {
+    this.id = id;
     this.name = name;
     this.calories = calories;
     this.fat = fat;
     this.carbs = carbs;
     this.protien = protien;
+  }
+  getId() {
+    return this.id;
   }
   getName() {
     return this.name;
@@ -36,8 +40,10 @@ class foodItem {
 }
 
 let Items = []
+let Ids = [] //Array of all itemids;
 let DailyCalorieCount = 2000;
 let CalorieCount = 0;
+let currentTime = new Date();
 
 let calPopup = function() {
   let popup = document.querySelector('#cal-popup');
@@ -51,6 +57,7 @@ let expandCard = function(card_id) {
 }
 
 let addItem = function() {
+  let itemId = currentTime.getTime();
   let name = document.querySelector('#item-name').value;
   let calories = parseInt(document.querySelector('#item-cal').value);
   let fat = parseInt(document.querySelector('#item-fat').value);
@@ -59,20 +66,23 @@ let addItem = function() {
   if(calories < 0 || fat < 0 || carbs < 0 || protien < 0 || calories == "" || fat == "" || carbs == "" || protien == "" || name == ""){
     alert("Enter Proper, Positive Values!")
   } else {
-    Items.push(new foodItem(name, calories, fat, carbs, protien))
+    let item = new foodItem(itemId, name, calories, fat, carbs, protien);
+    Items.push(item);
+    Ids.push(itemId);
+    insertCard(item);
+    saveItem(item);
     document.querySelector('#item-name').value = "";
     document.querySelector('#item-cal').value = "";
     document.querySelector('#item-fat').value = "";
     document.querySelector('#item-carbs').value = "";
     document.querySelector('#item-protien').value = "";
   }
-  updateSite()
 }
 
-let createCard = function(item, id) {
+let createCard = function(item) {
   let card = document.createElement("div");
   card.className = "card"
-  card.id = "card"+id;
+  card.id = "card"+item.getId();
   card.onclick = function() {expandCard(this.id);};
 
   let cardTitle = document.createElement("div");
@@ -91,9 +101,10 @@ let createCard = function(item, id) {
   let removeButton = document.createElement("button");
   removeButton.className = "btn rmbtn";
   removeButton.innerHTML = "Remove";
-  removeButton.id = "rmbtn"+id;
-  removeButton.onclick = function() {
-    removeCard(parseInt(this.id.slice(5)));
+  removeButton.id = "rmbtn"+item.getId();
+  removeButton.onclick = function(e) {
+      removeItemById(parseInt(this.id.slice(5)));
+      e.stopPropagation();
   }
   cardTitle.appendChild(removeButton);
 
@@ -128,38 +139,46 @@ let createCard = function(item, id) {
   return card;
 };
 
-let insertCard = function(item, id) {
-  let card = createCard(item, id);
-  let itemList = document.querySelector("#card-list");
-  itemList.appendChild(card);
-}
-
-let removeCard = function(id) {
-  Items = Items.slice(0, id).concat(Items.slice(id+1));
-  updateSite();
-}
-
-let updateSite = function() {
-  //Empty Current Card list
-  let itemList = document.querySelector("#item-list");
+let insertCard = function(item) {
+  let card = createCard(item);
   let cardList = document.querySelector("#card-list");
-  itemList.removeChild(cardList);
+  cardList.appendChild(card);
+  updateMeter();
+  if(Items.length == 1){
+    let dontBeHungry = document.querySelector("#dont-be-hungry");
+    dontBeHungry.classList.toggle("dbh");
+  }
+};
 
-  //Create New Card List
-  cardList = document.createElement("div");
-  cardList.id = "card-list";
-  itemList.appendChild(cardList);
+let removeItemById = function(id) {
+  //Delete from Items array
+  Items = Items.filter(item => item.getId() != id);
+  Ids = Ids.filter(id_ => id_ != id)
 
+  //Delete from website
+  let cardList = document.querySelector("#card-list");
+  let cardById = document.querySelector("#card"+id);
+  cardList.removeChild(cardById);
+  updateMeter();
+  if(Items.length == 0) {
+    let dontBeHungry = document.querySelector("#dont-be-hungry");
+    dontBeHungry.classList.toggle("dbh");
+  }
+
+  //Delete from localStorage
+  localStorage.removeItem(id);
+  saveItemIds();
+};
+
+let updateMeter = function() {
   //Insert items and Update Calorie Count
   CalorieCount = 0;
   for(let item = 0; item < Items.length; item++) {
-    insertCard(Items[item], item);
     CalorieCount += Items[item].getCalories()
   }
 
   //Change Meter According to Calorie Count
   let calBar = document.querySelector("#cal-bar");
-  console.log(CalorieCount);
   calBar.style.width = (CalorieCount/DailyCalorieCount)*(2/3)*100 + "%";
   if(CalorieCount <= DailyCalorieCount) {
     calBar.style.backgroundColor = "green";
@@ -167,7 +186,81 @@ let updateSite = function() {
     calBar.style.backgroundColor = "red";
     alert("You're eating a bit too much");
   }
-}
+};
+
+let updateSite = function() {
+  //Empty Current Card list
+  /*let itemList = document.querySelector("#item-list");
+  let cardList = document.querySelector("#card-list");
+  itemList.removeChild(cardList);
+
+  //Create New Card List
+  cardList = document.createElement("div");
+  cardList.id = "card-list";
+  itemList.appendChild(cardList);*/
+
+  //Insert Cards
+  for(let item = 0; item < Items.length; item++) {
+    insertCard(Items[item]);
+  }
+
+  //Update DCC
+  document.querySelector("#cal-limit").value = DailyCalorieCount;
+
+  //Dont-Be-Hungry Message
+  let dontBeHungry = document.querySelector("#dont-be-hungry");
+  if(Items.length <= 0){
+    dontBeHungry.classList.add("dbh");
+  } else {
+    dontBeHungry.classList.remove("dbh");
+  }
+
+  updateMeter();
+};
+
+let saveItemIds = function() {
+  localStorage.setItem("ids", JSON.stringify(Ids))
+};
+
+let saveItem = function(item) {
+  localStorage.setItem(item.getId(), JSON.stringify(item));
+  saveItemIds();
+};
+
+let retrieveItem = function(id) {
+  let item = JSON.parse(localStorage.getItem(id));
+  console.log(item);
+  let classitem = new foodItem(item.id, item.name, item.calories, item.fat, item.carbs, item.protien);
+  return classitem;
+};
+
+let saveDCC = function() {
+  localStorage.setItem("dcc", DailyCalorieCount); //Save the daily calorie count
+};
+
+let saveAllItems = function() {
+  for(item of Items) {
+      saveItem(item);
+  }
+  saveDCC();
+};
+
+let retrieveAllItems = function() {
+  //Get the ids first
+  let ids = JSON.parse(localStorage.getItem("ids"));
+  if(ids != null){
+    for(id of ids) {
+        Items.push(retrieveItem(id));
+        Ids.push(id);
+    }
+  }
+  DailyCalorieCount = localStorage.getItem("dcc") || 3000;
+};
+
+window.onload = function() {
+  retrieveAllItems();
+  updateSite();
+};
 
 let calcDailyCalories = function() {
   let isMale = document.querySelector("#calc-gen-m").checked;
@@ -189,5 +282,6 @@ let calcDailyCalories = function() {
     DailyCalorieCount = Math.round(BMR*physically_active);
   }
   document.querySelector("#cal-limit").value = DailyCalorieCount;
+  saveDCC();
   calPopup();
 }

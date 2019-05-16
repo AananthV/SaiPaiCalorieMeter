@@ -193,6 +193,16 @@ input {
   transition: width 2s;
 }
 
+.dont-be-hungry {
+  visibility: hidden;
+  height: 0;
+}
+
+.dbh {
+  visibility: visible;
+  height: auto;
+}
+
 @-webkit-keyframes fadeIn {
   from {opacity: 0;}
   to {opacity: 1;}
