@@ -227,7 +227,7 @@ input {
   to {opacity: 1;}
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 794px) {
   .main-container {
     width: 100%;
     flex-direction: column;
