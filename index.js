@@ -246,8 +246,8 @@ let updateSite = function() {
   }
 
   //Update DCC and DGC
-  document.querySelector("#cal-limit").value = DailyCalorieCount;
-  document.querySelector("#min-water").value = DailyWaterGlasses;
+  document.querySelector("#cal-limit").value = DailyCalorieCount + " kcal";
+  document.querySelector("#min-water").value = DailyWaterGlasses + " Glasses";
 
   //Dont-Be-Hungry Message
   toggleHungryMessage();
