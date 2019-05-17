@@ -81,7 +81,7 @@ let checkHydration = function() {
 let resetWater = function() {
   WaterGlasses = 0;
   localStorage.setItem("gc", 0);
-  localStorage.setItem("lastdrink", 0);
+  localStorage.removeItem("lastdrink");
   updateWaterMeter();
 }
 
