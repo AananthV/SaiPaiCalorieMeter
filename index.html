@@ -8,19 +8,37 @@
   </head>
   <body>
     <div class="main-container">
-      <div id="cal-meter-container">
-        <h2>Calorie Meter: </h2>
-        <div id="cal-meter">
-          <div id="cal-bar">
-            <span id="bar-text">
-            </span>
+      <div id="meter-container">
+        <div class="meter-container">
+          <h2>Calorie Meter: </h2>
+          <div id="cal-meter">
+            <div id="cal-bar">
+            </div>
+          </div>
+        </div>
+        <div class="meter-container">
+          <h2>Water Meter: </h2>
+          <div id="water-meter-container">
+              <div id="water-meter">
+                <div id="water-bar">
+                </div>
+              </div>
+              <img src="media/water.png" id="glass-icon" onclick="drinkWater()">
           </div>
         </div>
       </div>
       <div class="calculator">
         <div class="calorie-limit">
-          <label for="cal-limit"><h2>Daily Calorie Intake: </h2></label>
-          <input type="text" class="input-field" name="cal-limit" id="cal-limit" value="2000" readonly>
+          <div id="show-intake">
+            <div class="intake">
+              <label for="cal-limit"><h2>Daily Calorie Intake: </h2></label>
+              <input type="text" class="input-field" name="cal-limit" id="cal-limit" value="2000 kcal" readonly>
+            </div>
+            <div class="intake">
+              <label for="cal-limit"><h2>Daily Water Intake: </h2></label>
+              <input type="text" class="input-field" name="min-water" id="min-water" value="8 Glasses" readonly>
+            </div>
+          </div>
           <div class="dcal-calculator">
             <span id="cal-toggle" onclick="calPopup()">Calculate</span>
             <div class="dcal-calc" id="cal-popup" align="center">
@@ -34,15 +52,15 @@
                   <input type="radio" name="calc-gen" id="calc-gen-f">
                 </span>
                 <span class="calc-input">
-                  <label for="calc-age">Age: </label>
+                  <label for="calc-age">Age: (years) </label>
                   <input type="number" name="calc-age" id="calc-age">
                 </span>
                 <span class="calc-input">
-                  <label for="calc-height">Height: </label>
+                  <label for="calc-height">Height: (cm) </label>
                   <input type="number" name="calc-height" id="calc-height">
                 </span>
                 <span class="calc-input">
-                  <label for="calc-weight">Weight: </label>
+                  <label for="calc-weight">Weight: (kg) </label>
                   <input type="number" name="calc-weight" id="calc-weight">
                 </span>
                 <span class="calc-input">
@@ -68,19 +86,19 @@
             <input type="text" class="input-field" name="item-name" id="item-name"><br>
           </div>
           <div class="food-input">
-            <label for="item-cal">Calories: </label><br>
+            <label for="item-cal">Calories: (kcal) </label><br>
             <input type="number" min="0" class="input-field" name="item-cal" id="item-cal"><br>
           </div>
           <div class="food-input">
-            <label for="item-fat">Fat: </label><br>
+            <label for="item-fat">Fat: (g) </label><br>
             <input type="number" class="input-field" name="item-fat" id="item-fat"><br>
           </div>
           <div class="food-input">
-            <label for="item-carbs">Cabohydrate: </label><br>
+            <label for="item-carbs">Cabohydrate: (g) </label><br>
             <input type="number" class="input-field" name="item-carbs" id="item-carbs"><br>
           </div>
           <div class="food-input">
-            <label for="item-protien">Protien: </label><br>
+            <label for="item-protien">Protien: (g) </label><br>
             <input type="number" class="input-field" name="item-protien" id="item-protien"><br>
           </div>
           <input type="button" class="btn submitbtn" name="item-add" value="Add Item" onclick="addItem()">

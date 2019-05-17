@@ -173,19 +173,46 @@ input {
   font-size: 1em;
 }
 
-#cal-meter-container {
-  padding-right: 0.25em;
+#meter-container {
   width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.meter-container {
+  padding-right: 0.25em;
   margin-bottom: 0.35em;
+  width: 50%;
 }
 
 #cal-meter {
-  width: 100%;
+  width: 99%;
   height: 2em;
   border: 1px solid;
   padding: 1px;
   background-color: white;
   border-radius: 5px;
+}
+
+#water-meter-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#water-meter {
+  width: 95%;
+  height: 2em;
+  border: 1px solid;
+  padding: 1px;
+  background-color: white;
+  border-radius: 5px;
+}
+
+#glass-icon {
+  width: 2em;
+  height: 2em;
+  object-fit: scale-down;
 }
 
 #cal-bar {
@@ -200,6 +227,30 @@ input {
   justify-content: center;
   overflow-x: hidden;
   white-space: nowrap;
+}
+
+#water-bar {
+  display: flex;
+  width: 0%;
+  height: 100%;
+  font-size: 1.5em;
+  border-radius: 5px;
+  background-color: aqua;
+  transition: width 2s;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  white-space: nowrap;
+}
+
+#show-intake {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.intake {
+  width: 49%;
 }
 
 .dont-be-hungry {
@@ -272,6 +323,16 @@ input {
     justify-content: space-between;
     padding: 0.25em 0;
     white-space: normal;
+  }
+
+  #meter-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .meter-container {
+    width: 100%;
   }
 
   .show {

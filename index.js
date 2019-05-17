@@ -43,6 +43,8 @@ let Items = []
 let Ids = [] //Array of all itemids;
 let DailyCalorieCount = 2000;
 let CalorieCount = 0;
+let DailyWaterGlasses = 8;
+let WaterGlasses = 0;
 
 let calPopup = function() {
   let popup = document.querySelector('#cal-popup');
@@ -53,6 +55,41 @@ let expandCard = function(card_id) {
   let card = document.querySelector("#"+card_id);
   let card_body = card.querySelector(".card-body")
   card_body.classList.toggle('show')
+}
+
+let drinkWater = function() {
+  WaterGlasses += 1;
+  localStorage.setItem("gc",WaterGlasses);
+
+  let currentTime = new Date();
+  localStorage.setItem("lastdrink", currentTime.getTime());
+  updateWaterMeter();
+}
+
+/*
+Alerts if it has been an drinkInterval hours since last glass of water
+*/
+let checkHydration = function() {
+  let currentTime = new Date();
+  let lastDrink = localStorage.getItem("lastdrink") || currentTime.getTime();
+  let drinkInterval = 18/DailyWaterGlasses; //Assuming person is active for 18 hours a day and water is drank uniformly.
+  if(currentTime.getTime() - lastDrink > drinkInterval*3600000) {
+    alert("It has been a while since you drank water!")
+  }
+}
+
+let resetWater = function() {
+  WaterGlasses = 0;
+  localStorage.setItem("gc", 0);
+  localStorage.setItem("lastdrink", 0);
+  updateWaterMeter();
+}
+
+let updateWaterMeter = function() {
+  let waterBar = document.querySelector("#water-bar");
+  let barWidth = (WaterGlasses/DailyWaterGlasses)*100;
+  waterBar.style.width = (barWidth<=100? barWidth : 100) + "%";
+  waterBar.innerHTML = WaterGlasses + " Glasses";
 }
 
 let addItem = function() {
@@ -208,13 +245,15 @@ let updateSite = function() {
     insertCard(Items[item]);
   }
 
-  //Update DCC
+  //Update DCC and DGC
   document.querySelector("#cal-limit").value = DailyCalorieCount;
+  document.querySelector("#min-water").value = DailyWaterGlasses;
 
   //Dont-Be-Hungry Message
   toggleHungryMessage();
 
   updateMeter();
+  updateWaterMeter();
 };
 
 let toggleHungryMessage = function() {
@@ -243,6 +282,7 @@ let retrieveItem = function(id) {
 
 let saveDCC = function() {
   localStorage.setItem("dcc", DailyCalorieCount); //Save the daily calorie count
+  localStorage.setItem("dgc", DailyWaterGlasses); //Save the glasses count
 };
 
 let saveAllItems = function() {
@@ -261,20 +301,18 @@ let retrieveAllItems = function() {
         Ids.push(id);
     }
   }
-  DailyCalorieCount = localStorage.getItem("dcc") || 3000;
+  DailyCalorieCount = parseInt(localStorage.getItem("dcc")) || 2000;
+  DailyWaterGlasses = parseInt(localStorage.getItem("dgc")) || 8;
+  WaterGlasses = parseInt(localStorage.getItem("gc")) || 0;
 };
 
 let resetAllItems = function() {
   for(id of Ids) {
     removeItemById(id);
   }
+  resetWater();
   toggleHungryMessage();
 }
-
-window.onload = function() {
-  retrieveAllItems();
-  updateSite();
-};
 
 let calcDailyCalories = function() {
   let isMale = document.querySelector("#calc-gen-m").checked;
@@ -294,9 +332,21 @@ let calcDailyCalories = function() {
       BMR = 655 + 9.6*weight + 1.8*height - 4.7*age;
     }
     DailyCalorieCount = Math.round(BMR*physically_active);
+    /*
+      Daily Water Consumption is approximated to be Weight/30 in litres;
+      One glass of water is taken as 200ml
+    */
+    DailyWaterGlasses = Math.round(weight/6);
   }
-  document.querySelector("#cal-limit").value = DailyCalorieCount;
+  document.querySelector("#cal-limit").value = DailyCalorieCount + " kcal";
+  document.querySelector("#min-water").value = DailyWaterGlasses + " Glasses";
   saveDCC();
   calPopup();
   updateSite();
 }
+
+window.onload = function() {
+  retrieveAllItems();
+  checkHydration();
+  updateSite();
+};
