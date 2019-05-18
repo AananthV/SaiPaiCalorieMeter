@@ -100,7 +100,7 @@ let addItem = function() {
   let fat = parseInt(document.querySelector('#item-fat').value);
   let carbs = parseInt(document.querySelector('#item-carbs').value);
   let protien = parseInt(document.querySelector('#item-protien').value);
-  if(!(calories > 0 && fat > 0 && carbs > 0 && protien < 0)){
+  if(!(calories > 0 && fat > 0 && carbs > 0 && protien > 0 && name != "")){
     alert("Enter Proper, Positive Values!")
   } else {
     let item = new foodItem(itemId, name, calories, fat, carbs, protien);
