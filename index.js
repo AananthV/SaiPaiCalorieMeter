@@ -100,7 +100,7 @@ let addItem = function() {
   let fat = parseInt(document.querySelector('#item-fat').value);
   let carbs = parseInt(document.querySelector('#item-carbs').value);
   let protien = parseInt(document.querySelector('#item-protien').value);
-  if(calories < 0 || fat < 0 || carbs < 0 || protien < 0 || calories == "" || fat == "" || carbs == "" || protien == "" || name == ""){
+  if(!(calories > 0 && fat > 0 && carbs > 0 && protien < 0)){
     alert("Enter Proper, Positive Values!")
   } else {
     let item = new foodItem(itemId, name, calories, fat, carbs, protien);
@@ -321,7 +321,7 @@ let calcDailyCalories = function() {
   let weight = parseInt(document.querySelector("#calc-weight").value);
   let physically_active = parseFloat(document.querySelector("#calc-active").value);
 
-  if(age == "" || height == "" || weight == "" || age < 0 || height < 0 || weight < 0) {
+  if(!(age > 0 && height > 0 && weight > 0)) {
     alert("Enter Proper, Positive Values");
   } else {
     //Using the Harris-Benedict Equation
