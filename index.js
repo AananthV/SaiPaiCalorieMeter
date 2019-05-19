@@ -45,6 +45,17 @@ let DailyCalorieCount = 2000;
 let CalorieCount = 0;
 let DailyWaterGlasses = 8;
 let WaterGlasses = 0;
+let ShowResetButton = false;
+
+let hideResetButton = function() {
+  document.querySelector("#reset-btn").classList.remove("show-rst");
+  ShowResetButton = false;
+};
+
+let showResetButton = function() {
+  document.querySelector("#reset-btn").classList.add("show-rst");
+  ShowResetButton = true;
+};
 
 let calPopup = function() {
   let popup = document.querySelector('#cal-popup');
@@ -55,16 +66,21 @@ let expandCard = function(card_id) {
   let card = document.querySelector("#"+card_id);
   let card_body = card.querySelector(".card-body")
   card_body.classList.toggle('show')
-}
+};
 
 let drinkWater = function() {
   WaterGlasses += 1;
   localStorage.setItem("gc",WaterGlasses);
 
+  // Unhide Reset Button if it is hidden
+  if(!ShowResetButton) {
+    showResetButton();
+  }
+
   let currentTime = new Date();
   localStorage.setItem("lastdrink", currentTime.getTime());
   updateWaterMeter();
-}
+};
 
 /*
 Alerts if it has been an drinkInterval hours since last glass of water
@@ -76,14 +92,15 @@ let checkHydration = function() {
   if(currentTime.getTime() - lastDrink > drinkInterval*3600000) {
     alert("It has been a while since you drank water!")
   }
-}
+};
 
 let resetWater = function() {
   WaterGlasses = 0;
   localStorage.setItem("gc", 0);
   localStorage.removeItem("lastdrink");
   updateWaterMeter();
-}
+  hideResetButton();
+};
 
 let updateWaterMeter = function() {
   let waterBar = document.querySelector("#water-bar");
@@ -114,7 +131,7 @@ let addItem = function() {
     document.querySelector('#item-carbs').value = "";
     document.querySelector('#item-protien').value = "";
   }
-}
+};
 
 let createCard = function(item) {
   let card = document.createElement("div");
@@ -184,6 +201,7 @@ let insertCard = function(item) {
   if(Items.length == 1){
     let dontBeHungry = document.querySelector("#dont-be-hungry");
     dontBeHungry.classList.toggle("dbh");
+    showResetButton();
   }
 };
 
@@ -200,6 +218,7 @@ let removeItemById = function(id) {
   if(Items.length == 0) {
     let dontBeHungry = document.querySelector("#dont-be-hungry");
     dontBeHungry.classList.toggle("dbh");
+    hideResetButton();
   }
 
   //Delete from localStorage
