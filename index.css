@@ -1,8 +1,12 @@
 body {
-  background-color: #eeeeee;
-  padding: 0px;
+  background-color: #eee;
   display: flex;
+  height: 98%;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
 }
 
 h2, h3 {
@@ -13,16 +17,6 @@ h1, .item-list h2 {
   text-align: center;
 }
 
-header {
-  text-align: center;
-  position: sticky;
-  overflow: hidden;
-}
-
-.heading {
-  font-size: 2em;
-}
-
 .main-container {
   position: relative;
   display: flex;
@@ -30,6 +24,9 @@ header {
   width: 70%;
   padding: 0.5em;
   background-color: #f8f9fa;
+  border: 2px solid;
+  border-radius: 10px;
+  box-shadow: 0 0 10px black;
 }
 
 .main-container .calculator {
@@ -131,6 +128,10 @@ header {
   padding: 0.25em 0;
 }
 
+.calorie-limit h2 {
+  margin: 0;
+}
+
 .show {
   visibility: visible;
   height: auto;
@@ -153,11 +154,11 @@ header {
 }
 
 .rmbtn {
-  background-color: red;
+  background-color: #d9534f;
 }
 
 .submitbtn {
-  background-color: green;
+  background-color: #5cb85c;
 }
 
 .clear-list {
@@ -273,9 +274,21 @@ input {
   to {opacity: 1;}
 }
 
+#heading {
+  width: 100%;
+  text-align: center;
+  font-size: 3em;
+  font-weight: 600;
+}
+
+#heading hr {
+  margin: 0.25em 0em;
+}
+
 @media only screen and (max-width: 794px) {
   .main-container {
-    width: 100%;
+    width: 96%;
+    margin: auto 2%;
     flex-direction: column;
   }
   .main-container .calculator {
@@ -344,7 +357,13 @@ input {
 }
 
 @media only screen and (min-width: 794px) {
-  .btn:hover {
-    background-color: blue;
+  html {
+    height: 100%;
+  }
+  .rmbtn:hover {
+    background-color: #b34441;
+  }
+  .submitbtn:hover {
+    background-color: #428542;
   }
 }

@@ -3,11 +3,16 @@
   <head>
     <meta charset="utf-8" content="width=device-width, initial-scale=1" name="viewport"/>
     <title>Calorie Tracker</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="index.css">
     <script src="index.js" charset="utf-8"></script>
   </head>
   <body>
     <div class="main-container">
+      <div id="heading">
+        Calorie Tracker
+        <hr>
+      </div>
       <div id="meter-container">
         <div class="meter-container">
           <h2>Calorie Meter: </h2>
@@ -29,13 +34,15 @@
       </div>
       <div class="calculator">
         <div class="calorie-limit">
+          <hr>
+          <h2>Daily Intake:</h2>
           <div id="show-intake">
             <div class="intake">
-              <label for="cal-limit"><h2>Daily Calorie Intake: </h2></label>
+              <label for="cal-limit"><h3>Calories: </h3></label>
               <input type="text" class="input-field" name="cal-limit" id="cal-limit" value="2000 kcal" readonly>
             </div>
             <div class="intake">
-              <label for="cal-limit"><h2>Daily Water Intake: </h2></label>
+              <label for="cal-limit"><h3>Water: </h3></label>
               <input type="text" class="input-field" name="min-water" id="min-water" value="8 Glasses" readonly>
             </div>
           </div>
