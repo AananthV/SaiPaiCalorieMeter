@@ -297,8 +297,8 @@ input {
     flex-direction: column;
   }
   .main-container .calculator {
-    width: 99%;
-    padding-right: 1%;
+    width: 97%;
+    padding-right: 3%;
   }
   .main-container .item-list {
     background-color: #eee;
